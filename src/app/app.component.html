@@ -1,0 +1,63 @@
+
+
+<div class="container">
+  <h1>Angular Todo List App</h1>
+  <hr>
+  <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="input-field col s9">
+          <input  type="text" formControlName="title"  id="title" required>
+          <label for="title">Enter Task</label>
+
+          <p [ngClass]="todoForm.errors && todoForm.errors['title'] ? 'show': 'hide'" >{{this.todoForm != null && this.todoForm.errors != null && this.todoForm.errors['title']}}</p>
+          
+        </div>
+        <div class="input-field col s3">
+          <button type="submit" class="btn waves-effect waves-light blue">
+            <i class= "material-icons inline-icon inline-add">add</i>Add
+          </button>
+        </div>
+    </div>
+  </form>
+  <ul class="todo-list" *ngFor="let todo of todos">
+    <li *ngIf="!this.todo.isComplete">
+      <div>
+        <div>{{this.todo.title}}</div>
+          <div>
+            <button (click)="onComplete(this.todo.id)" class="btn-floating waves-effect waves-light green">
+              <i class="material-icons">check</i>
+            </button>
+
+            <button (click)="onDelete(this.todo.id)" class="btn-floating waves-effect waves-light red">
+              <i class= "material-icons">delete</i>
+            </button>
+          </div>
+        </div>   
+      </li>
+  </ul>
+
+
+  <div *ngIf="!todos?.length" class="msg">
+    Your Todo List is Empty!
+  </div>
+
+
+  <hr>
+  <br>
+
+
+  <h1 id="completed-tasks">Completed Tasks</h1>
+  <hr>
+  <ul class="todo-list" *ngFor="let todo of todos">
+    <li *ngIf="this.todo.isComplete">
+      <div>
+        <div>{{this.todo.title}}</div>
+        <div>
+          <button (click)="onDelete(this.todo.id)" class="btn-floating waves-effect waves-light red">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
